@@ -15,9 +15,9 @@ app.get('/api/todos', async (req, res) => {
 })
 
 app.post(`/api/todo`, async (req, res) => {
-    const { text } = req.body
+    const { text, deadline } = req.body
     const newTodo = await prisma.todo.create({
-        data: { text },
+        data: { text, deadline },
         include: { tags: true }
     })
     res.json(newTodo);
@@ -35,14 +35,15 @@ app.delete(`/api/todo/:id`, async (req, res) => {
 })
 
 app.patch('/api/todo', async (req, res) => {
-    const { text, id, completed, lastUpdated, tags } = req.body;
+    const { text, id, completed, lastUpdated, deadline, tags } = req.body;
     try {
         const updatedTodo = await prisma.todo.update({
             where: { id },
             data: {
                 text,
                 completed,
-                lastUpdated
+                lastUpdated,
+                deadline
             },
             include: { tags: true }
         })
