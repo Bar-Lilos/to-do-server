@@ -13,6 +13,7 @@ model Todo {
   completed     Boolean     @default(false)
   createdTime   DateTime    @default(now())
   lastUpdated   DateTime    @default(now())
+  deadline      DateTime    @default(now())
   tags          Tag[]
 }
 
